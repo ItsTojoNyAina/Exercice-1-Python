@@ -37,11 +37,15 @@ def deuxieme_forme_canonique(variables, table_verite):
             formule.append("(" + " | ".join(terme) + ")")
     return " & ".join(formule)
 
-# Fonction logique à tester 
-fonction_logique = input("Entrez la fonction logique : ")
+# Nombre de variables
+nb_variables = int(input("Entrez le nombre de variables : "))
 
 # Variables de la fonction logique
-variables = [v.strip() for v in input("Entrez les noms des variables séparés par des espaces : ").split()]
+print("Entrez les noms des variables séparés par des espaces :")
+variables = [input(f"Variable {i+1}: ").strip() for i in range(nb_variables)]
+
+# Fonction logique à tester 
+fonction_logique = input("Entrez la fonction logique : ")
 
 # Affichage de la table de vérité
 print("\nTable de vérité :")
