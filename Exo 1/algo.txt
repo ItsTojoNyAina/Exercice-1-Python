@@ -1,0 +1,57 @@
+Fonction table_verite(fonction, variables):
+    // Affichage des en-têtes de la table de vérité
+    Pour chaque variable dans variables:
+        Afficher variable
+    Afficher fonction
+    
+    // Calcul et affichage des lignes de la table de vérité
+    Pour chaque combinaison de valeurs binaires pour les variables:
+        Calculer la valeur de la fonction pour cette combinaison de valeurs
+        Afficher les valeurs des variables suivies de la valeur de la fonction
+
+Fonction premiere_forme_canonique(variables, table_verite):
+    formule = []
+    Pour chaque ligne dans table_verite:
+        Si la valeur de la fonction est 1 pour cette ligne:
+            terme = []
+            Pour chaque variable dans variables:
+                Si la valeur de la variable est 0 pour cette ligne:
+                    Ajouter variable à terme
+                Sinon:
+                    Ajouter "not variable" à terme
+            Ajouter "(" + joindre les termes de terme avec " & " + ")" à formule
+    Retourner joindre les éléments de formule avec " | "
+
+Fonction deuxieme_forme_canonique(variables, table_verite):
+    formule = []
+    Pour chaque ligne dans table_verite:
+        Si la valeur de la fonction est 0 pour cette ligne:
+            terme = []
+            Pour chaque variable dans variables:
+                Si la valeur de la variable est 1 pour cette ligne:
+                    Ajouter variable à terme
+                Sinon:
+                    Ajouter "not variable" à terme
+            Ajouter "(" + joindre les termes de terme avec " | " + ")" à formule
+    Retourner joindre les éléments de formule avec " & "
+
+// Fonction logique à tester
+fonction_logique = Entrer la fonction logique
+
+// Variables de la fonction logique
+variables = Séparer les noms des variables entrés par l'utilisateur
+
+// Affichage de la table de vérité
+Afficher "Table de vérité :"
+Appeler table_verite(fonction_logique, variables)
+
+// Calcul et affichage des formes canoniques
+table = []
+Pour chaque combinaison de valeurs binaires pour les variables:
+    Ajouter la combinaison de valeurs binaires suivie de la valeur de la fonction pour cette combinaison à table
+
+Afficher "Première forme canonique :"
+Afficher appel de la fonction premiere_forme_canonique avec variables et table
+
+Afficher "Deuxième forme canonique :"
+Afficher appel de la fonction deuxieme_forme_canonique avec variables et table

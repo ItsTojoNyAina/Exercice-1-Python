@@ -1,0 +1,53 @@
+Fonction simplification_karnaugh(table_de_verite)
+    mintermes = []
+    Pour chaque i, val dans énumérer(table_de_verite)
+        Si val est vrai
+            Ajouter i à mintermes
+    
+    nombre_variables = Longueur de table_de_verite - 1
+    lignes = 2 ** (nombre_variables // 2)
+    colonnes = 2 ** (nombre_variables - nombre_variables // 2)
+
+    Initialiser grille_karnaugh comme une grille de 0 de taille lignes x colonnes
+
+    Pour chaque minterme dans mintermes
+        ligne = minterme // colonnes
+        colonne = minterme % colonnes
+        grille_karnaugh[ligne][colonne] = 1
+
+    groupes = []
+    Pour chaque ligne i de 0 à lignes
+        Pour chaque colonne j de 0 à colonnes
+            Si grille_karnaugh[i][j] est vrai
+                groupe = [(i, j)]
+                grille_karnaugh[i][j] = 0
+                Si grille_karnaugh[i][(j + 1) % colonnes] est vrai
+                    Ajouter (i, (j + 1) % colonnes) à groupe
+                    grille_karnaugh[i][(j + 1) % colonnes] = 0
+                Si grille_karnaugh[(i + 1) % lignes][j] est vrai
+                    Ajouter ((i + 1) % lignes, j) à groupe
+                    grille_karnaugh[(i + 1) % lignes][j] = 0
+                Si grille_karnaugh[(i + 1) % lignes][(j + 1) % colonnes] est vrai
+                    Ajouter ((i + 1) % lignes, (j + 1) % colonnes) à groupe
+                    grille_karnaugh[(i + 1) % lignes][(j + 1) % colonnes] = 0
+                Ajouter groupe à groupes
+
+    expression_simplifiee = []
+    Pour chaque groupe dans groupes
+        termes = []
+        Pour chaque (ligne, colonne) dans groupe
+            terme = []
+            Pour chaque i de 0 à nombre_variables // 2
+                Si ligne & (1 << i) est vrai
+                    Ajouter "A{i}" à terme
+                Sinon
+                    Ajouter "NON A{i}" à terme
+            Pour chaque i de 0 à nombre_variables - nombre_variables // 2
+                Si colonne & (1 << i) est vrai
+                    Ajouter "B{i}" à terme
+                Sinon
+                    Ajouter "NON B{i}" à terme
+            Ajouter la concaténation de terme à termes
+        Ajouter la concaténation de termes à expression_simplifiee
+
+    Retourner la concaténation de expression_simplifiee
